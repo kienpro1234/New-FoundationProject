@@ -1,0 +1,62 @@
+.food-container {
+    padding: 50px 50px;
+}
+
+.ingredients,
+.food,
+.portion {
+    border-bottom: 1px dotted #666;
+    padding-bottom: 17px;
+    margin-bottom: 17px;
+}
+
+.description {}
+
+.food-mainInfo div h3,
+.description h3 {
+    font-size: 18px;
+}
+
+.food-mainInfo div p,
+.description p {
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+.food {
+    padding-bottom: 65px;
+}
+
+.image {
+    width: 415px;
+    height: 324px;
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.price {
+    font-size: 36px;
+    margin: 20px 0;
+    color: var(--color-red-tomato);
+}
+
+.name {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 41px;
+}
+
+/* RESPONSIVE */
+@media screen and (min-width: 1500px) and (max-width: 2400px) {
+    .image {
+        width: 500px;
+        height: 420px;
+    }
+}
+
+@media screen and (max-width: 767.8px) {
+
+    .food-container {
+        padding: 50px 8px;
+    }
+}

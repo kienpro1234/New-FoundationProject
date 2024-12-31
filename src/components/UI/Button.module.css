@@ -1,0 +1,11 @@
+.button {
+    border: 1px solid #fff;
+    padding: 13px 35px;
+    transition: all .2s;
+}
+
+.button:hover {
+    background-color: var(--color-red-tomato);
+    border-color: var(--color-red-tomato);
+}
+

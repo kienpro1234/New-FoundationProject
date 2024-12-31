@@ -1,0 +1,33 @@
+.editBtnUserInfo {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Mượt hiệu ứng hover */
+}
+
+.editBtnUserInfo:hover {
+    background-color: #555;
+    /* Màu nền thay đổi khi hover */
+    color: #f0f0f0;
+    /* Màu chữ thay đổi khi hover */
+}
+
+.greeting-wrapper {
+    color: white;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+
+    .text {
+        width: 100% !important;
+    }
+
+  
+}
+

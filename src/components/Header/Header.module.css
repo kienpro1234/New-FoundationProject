@@ -1,0 +1,120 @@
+.header {
+    position: fixed;
+    right: 30px;
+    top: 25px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgba(34, 34, 34, .6);
+    border-radius: 27px;
+    height: 54px;
+    min-width: 210px;
+    z-index: 2;
+}
+
+.header div {
+    min-width: 60px;
+    /* max-width: 100px; */
+    /* flex-shrink: 0; */
+}
+
+.header div button {
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    color: #dddcdc;
+    margin-left: 5px;
+}
+
+
+.header div button:hover {
+    background-color: var(--color-red-tomato);
+    transform: scale(1.1);
+    /* Tạo hiệu ứng phóng to nhẹ mà không thay đổi layout */
+}
+
+.header-search {
+    position: relative;
+    margin-left: 6px;
+}
+
+.search-open {
+    width: 340px;
+    padding: 10px;
+    height: 47px;
+    border-radius: 30px;
+    border: none;
+    transition: width .3s ease;
+    /* margin-left: 20px; */
+}
+
+.search-open:focus {
+    outline: none;
+}
+
+.search-close {
+    width: 0;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(34, 34, 34, .6);
+    border-color: rgba(34, 34, 34, .6);
+    /* transform-origin: right; */
+    transition: width .3s ease;
+}
+
+
+.button-search-open {
+    position: absolute;
+    right: 3%;
+    top: 10%;
+}
+
+/* LOGIN MENU */
+.header-auth-notLog {
+    position: relative;
+
+}
+
+.header-auth-notLog:hover .login-menu-container, .login-menu-container:hover, .login-menu-overlay {
+    display: block;
+}
+
+
+.login-menu-container {
+    display: none;
+    position: absolute;
+    width: 116px;
+    bottom: -79px;
+    left: -32px;
+}
+
+.login-menu {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.login-menu::before {
+    content: "";
+    position: absolute;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid white;
+    
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.login-menu-overlay{
+    content: "";
+    position: absolute;
+    top: -10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}

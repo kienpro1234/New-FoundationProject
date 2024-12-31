@@ -1,0 +1,475 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --color-red: #999;
+  --color-red-tomato: #d83a3a;
+  --form-control-disabled: #959495;
+}
+
+@font-face {
+  font-family: "YummyFoodies";
+  src: url("../src/assets/fonts/YummyFoodies-demo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+.star {
+  color: #ffcc00;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  height: 100vh;
+  /* height: 100vh; */
+  /* min-height: 2000px; */
+  /* min-height: 2000px; */
+}
+
+.home,
+.menu,
+/* .menuLanding, */
+.foodDetail, .about {
+  margin-left: 200px;
+  overflow: hidden;
+}
+
+/* Error */
+
+.error-block {
+  background-color: #f0d9e5;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #890b35;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  text-align: left;
+}
+
+.error-block-icon {
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+  color: #fff;
+  background-color: #890b35;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-block h2 {
+  color: inherit;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.error-block p {
+  margin: 0;
+}
+
+/* Button component */
+/* for button in MenuCategorySection */
+.food-review-button {
+  background-color: hsl(0deg 96.78% 49.94% / 60%);
+  color: white;
+  padding: 8px 30px;
+}
+
+.food-review-button:hover {
+  background-color: hsl(0deg 96.78% 49.94% / 80%);
+}
+
+/* in food.jsx in food folder */
+.food-order-button {
+  font-size: 20px;
+  padding: 10px 10rem;
+  margin-bottom: 25px;
+}
+
+/* Change password button */
+.changeP-button {
+  background-color: #28a745;
+}
+
+.changeP-button:hover {
+  background-color: #218838;
+}
+
+/* USER INFO SECTION  */
+.userInfo {
+  padding: 10px 80px;
+  position: relative;
+  bottom: 3rem;
+  z-index: 3;
+}
+
+.headerGreeting-userinfo {
+  background-image: url("/src/assets/anh3.png");
+  /* background-size: cover; */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: relative;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid black;
+}
+
+.headerGreeting-userinfo::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to top, #000000, transparent);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.headerGreeting-userinfo::after {
+  content: "";
+  position: absolute;
+  width: 20%;
+  height: 28%;
+  right: 0;
+  top: 0;
+  opacity: 1;
+  z-index: 1;
+  background: linear-gradient(223deg, black 0%, transparent 57%);
+}
+
+.headerGreeting-wrapper-userinfo {
+  padding: 10px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* GLOBAL INPUT CSS  */
+/* INPUT */
+/* Style cho class .userInformation */
+.userInformation input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  color: #333;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Focus effect */
+.userInformation input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  background-color: #fff;
+}
+
+/* Hover effect */
+.userInformation input:hover {
+  background-color: #eaeaea;
+}
+
+/* Disable effect */
+.userInformation input:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Placeholder text */
+.userInformation input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Loading icon */
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 1rem 0;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #e30d5b;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e30d5b transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide-down-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pop-up-delete {
+  position: fixed;
+  top: 50%;
+  left: 61%;
+  transform: translate(-74%, -50%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.loading-menu,
+.errorMenu {
+  margin-left: 200px;
+}
+
+.loading-menuComponent-config {
+  margin-left: 0;
+}
+
+/* config này để mở rộng vùng click của button  */
+.button-click-expand {
+  position: relative;
+  z-index: 1;
+}
+
+.button-click-expand::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: 0;
+}
+
+/* ABOUT PAGE */
+.about-bottom-flex > div {
+  flex-basis: calc(50% - 50px);
+}
+
+/* RESGISTER AND LOGIN */
+.heading-login {
+  @apply text-2xl font-bold;
+}
+
+/* Custom input css */
+
+.form-control-input {
+  font-family: system-ui, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.1;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+
+input[type="checkbox"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  appearance: none;
+  /* For iOS < 15 to remove gradient background */
+  background-color: #fff;
+  /* Not removed via appearance */
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--color-red-tomato);
+  background-color: CanvasText;
+
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:disabled {
+  --form-control-color: var(--form-control-disabled);
+
+  color: var(--form-control-disabled);
+  cursor: not-allowed;
+}
+
+.bold-yellow {
+  color: #ffd700; /* Vàng đậm */
+}
+
+.gray-star {
+  color: #e0e0e0; /* Màu xám nhạt */
+}
+
+.partial-star {
+  display: inline-block;
+  position: relative;
+  color: #e0e0e0; /* Màu nhạt mặc định */
+  width: 1em; /* Đảm bảo kích thước sao nhất quán */
+}
+
+.partial-star span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+  color: #ffd700; /* Vàng đậm */
+}
+
+/* RESPONSIVE */
+@media screen and (min-width: 1760px) {
+  .headerGreeting-userinfo {
+    background-image: url("/src/assets/anh3.png");
+    background-size: cover;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home,
+  .menu,
+  /* .menuLanding, */
+  .foodDetail, .about {
+    margin-left: 0;
+    overflow: hidden;
+  }
+
+  .userInfo {
+    padding: 10px 40px;
+  }
+
+  .headerGreeting-wrapper-userinfo {
+    padding: 10px 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .food-review-button {
+    width: 100%;
+  }
+}
+
+.menu-mobile-wrapper {
+  position: relative;
+  height: calc(100% - 70px);
+}
+
+.siderMenuWrapper-mobile {
+  padding: 2rem 2rem;
+}
+
+.sider-footer-mobile {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.sider-footer-mobile .sider-icon {
+  font-size: 2rem;
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+  padding: 20px;
+  justify-content: space-around;
+  border-top: 1px solid black;
+}
+
+.sider-footer-mobile .sider-icon i {
+  cursor: pointer;
+}
+
+.sider-contact {
+  display: flex;
+  flex-direction: column;
+  padding-left: 42px;
+  padding-bottom: 20px;
+}
+
+@media screen and (min-width: 1500px) and (max-width: 2400px) {
+  .food-detail-big-screen,
+  .container-big-screen {
+    padding: 50px 13rem !important;
+  }
+
+  .menu,
+  .home,
+  .about,
+  .foodDetail {
+    margin-left: 240px;
+  }
+}

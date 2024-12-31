@@ -1,0 +1,54 @@
+.menuLanding {
+  background-image: url("https://static.tastykitchen.vn/images/pc/bg-td-top-pc.jpg");
+  background-size: cover;
+  height: 200px;
+  color: #fff;
+  position: relative;
+}
+
+.menuLanding-captions {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.menuLanding-captions h3 {
+  position: relative;
+  margin-bottom: 2rem;
+  text-align: center;
+  /* display: inline-block; */
+}
+
+.menuLanding-captions h3::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 50px;
+  height: 2px;
+  background-color: #fff;
+  transform: translateX(-50%);
+}
+
+.menuLanding-captions h2 {
+  font-size: 28px;
+  letter-spacing: 0.05em;
+}
+
+@media screen and (max-width: 920px) {
+  .menuLanding-captions {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .menuLanding-captions h2 {
+    font-size: 23px;
+  }
+
+  .menuLanding-captions {
+    width: 100%;
+  }
+}

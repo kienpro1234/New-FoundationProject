@@ -1,0 +1,43 @@
+.sider-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sider-nav li a {
+    color: #b3b3b3;
+}
+
+
+.sider-nav li a:hover {
+    color: #333;
+}
+
+.sider-nav li a.active {
+    color: #333;
+    position: relative;
+}
+
+.sider-nav li a.active::before {
+    content: "";
+    height: 1px;
+    background-color: #d83a3a;
+    position: absolute;
+    left: -37px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 27px;
+}
+
+.sider-contact p{
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .sider-nav {
+        gap: 20px;
+    }
+    .sider-nav li a {
+        padding-left: 10px;
+    }
+}

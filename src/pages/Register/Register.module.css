@@ -1,0 +1,47 @@
+.loginContainer {
+    height: 100vh;
+    background-image: url("../../assets/anh3.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: auto;
+    padding: 0 11px;
+}
+
+.loginContainer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    opacity: 0.5;
+}
+
+
+.loginForm {
+    background-color: rgb(206, 206, 204);
+    width: 450px;
+    padding: 23px 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.input-password {
+    position: relative;
+}
+
+.input-password button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* error css */
+.error {
+    @apply text-red-500 text-sm;
+}

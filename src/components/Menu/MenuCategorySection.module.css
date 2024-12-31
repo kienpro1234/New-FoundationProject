@@ -1,0 +1,186 @@
+/* .category {
+    overflow: hidden;
+} */
+
+.category li {
+  box-sizing: border-box;
+}
+
+.image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  border-radius: 5px;
+}
+
+.title {
+  text-align: center;
+  font-weight: 500;
+  position: relative;
+  font-size: 25px;
+  margin-bottom: 40px;
+}
+
+.title::before {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #ccc;
+  left: 0;
+  z-index: -1;
+}
+
+.title span {
+  background-color: #fff;
+  padding: 0 30px;
+}
+
+.foodName {
+  font-size: 20px;
+  color: #333;
+}
+
+.foodInfo {
+  position: relative;
+}
+
+.foodInfo-status {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  background-color: rgba(51, 51, 51, 0.98);
+  border-radius: 10px;
+  padding: 0 6px;
+  font-size: 14px;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.foodInfo .price {
+  color: var(--color-red-tomato);
+}
+
+.sale-status {
+  background: url("https://static.tastykitchen.vn/images/pc/icon-selling.png") no-repeat 50%;
+  position: absolute;
+  height: 42px;
+  right: 10px;
+  top: -2px;
+  width: 34px;
+  z-index: 2;
+}
+
+.foodInfo-fav-btn,
+.foodInfo-delelte-btn,
+.foodInfo-edit-btn {
+  width: 35px;
+  height: 35px;
+  background-color: hsl(0deg 96.78% 49.94% / 60%);
+  color: #fff;
+  position: absolute;
+  right: 0;
+  top: 39%;
+  z-index: 2;
+}
+
+.foodInfo-edit-btn {
+  background-color: #007bff;
+}
+
+.foodInfo-delelte-btn {
+  top: 24%;
+}
+
+.foodInfo-edit-btn {
+  top: 54%;
+}
+
+.foodInfo-fav-btn:hover,
+.foodInfo-delelte-btn:hover,
+.foodInfo-edit-btn:hover {
+  background-color: var(--color-red-tomato);
+  color: white;
+}
+
+.foodInfo-edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.food-review-detail {
+  color: #999;
+}
+
+.menu-category-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.pop-up {
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.pop-up-loading {
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 768px) {
+  .image {
+    height: 120px;
+  }
+
+  .sale-status {
+    height: 32px;
+    right: 5px;
+    top: -3px;
+    width: 26px;
+  }
+
+  .foodInfo-status {
+    font-size: 10px;
+    height: 18px;
+    left: 5px;
+    line-height: 18px;
+    top: 5px;
+  }
+
+  .foodInfo-fav-btn,
+  .foodInfo-delelte-btn,
+  .foodInfo-edit-btn {
+    width: 20px;
+    height: 20px;
+    top: 27%;
+    /* transform: translateY(-50%); */
+    font-size: 13px;
+  }
+
+  .foodInfo-delelte-btn {
+    top: 38%;
+  }
+
+  .foodInfo-edit-btn {
+    top: 16%;
+  }
+}

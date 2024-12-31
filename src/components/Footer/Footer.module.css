@@ -1,0 +1,124 @@
+
+
+.footer-signup {
+    background-image: url("https://static.tastykitchen.vn/images/bg-newsletters.jpg");
+    background-size: cover;
+    position: relative;
+    height: 350px;
+}
+
+.footer-signup-captions {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.footer-signup-captions>h3 {
+    margin-bottom: 20px;
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 46px;
+}
+
+.footer-signup-captions>p {
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 20px;
+}
+
+.footer-signup-inputContainer {
+    position: relative;
+}
+
+.footer-signup-inputContainer input {
+    height: 48px;
+    width: 100%;
+    padding: 20px 140px 20px 20px;
+    color: black;
+}
+
+.footer-signup-inputContainer input:focus {
+    outline: none;
+}
+
+
+.footer-signup-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 130px;
+    height: 48px;
+    background-color: var(--color-red-tomato);
+    color: white;
+    transition: all .3s;
+}
+
+.footer-signup-btn:hover {
+    background-color: #e64545;
+}
+
+
+/* FOOTER-UTILS */
+.footer-utils {
+    padding: 60px 88px;
+}
+
+.footer-utils-item img {
+    width: 60px;
+    height: 60px;
+}
+
+.footer-utils-item>p:first-of-type {
+    margin: 10px 0 4px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.footer-utils-item>p:last-of-type {
+    font-size: 13px;
+    margin: auto;
+    width: 80%;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 767.98px) {
+
+    .footer-signup-captions {
+        width: 86%;
+        line-height: normal;
+    }
+
+
+
+    .footer-signup-captions>h3 {
+        font-size: 22px;
+        line-height: 1.2;
+        margin-bottom: 10px;
+        /* text-wrap: nowrap; */
+    }
+
+    .footer-signup-captions>p {
+        font-size: 14px;
+        line-height: 1.2;
+    }
+
+    .footer-signup-inputContainer input{
+        height: 38px;
+        padding: 0 19px;
+    }
+
+    .footer-signup-inputContainer .footer-signup-btn{
+        height: 38px;
+        width: 95px;
+    }
+
+    .footer-signup{
+        height: unset;
+        padding: 125px 0;
+
+    }
+}
