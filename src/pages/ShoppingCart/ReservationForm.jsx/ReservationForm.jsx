@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import PopUpReservation from "../PopUpReservation.jsx/PopUpReservation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ReservationForm({ cartItems }) {
   const [isOpen, setIsOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   console.log("user ne", user);
+  const queryClient = useQueryClient();
   const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => {
+    setIsOpen(false);
+    // queryClient.invalidateQueries({ queryKey: ["cartList"] });
+  };
   const [reservationData, setReservationData] = useState({
     date: "",
     time: "",

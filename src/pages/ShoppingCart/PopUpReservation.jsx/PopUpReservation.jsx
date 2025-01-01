@@ -1,14 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { payOrders } from "../../../apis/tableApi";
 
 import { CartContext } from "../../../context/cartContext";
 import LoadingModal from "../../../components/LoadingModal/LoadingModal";
+import { confirmReservation } from "../../../apis/cart.api";
+import { toast } from "react-toastify";
 
 export default function PopUpReservation({ handleClose, reservationData, cartItems }) {
   console.log("cart items:", cartItems);
   console.log("reservationData:", reservationData);
   const { userId } = useContext(CartContext);
+  const queryClient = useQueryClient();
   // Add state for confirmation popup
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -42,9 +45,44 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
       });
     }
   };
+
+  const confirmReservationMutation = useMutation({
+    mutationFn: confirmReservation,
+    onSuccess: () => {
+      toast.success("Đặt lịch thành công");
+      setShowConfirmation(true);
+      // queryClient.invalidateQueries({ queryKey: ["cartList"] });
+    },
+    onError: (error) => {
+      console.error("error confirm reservation", error);
+      toast.error("Đặt lịch thất bại");
+    },
+  });
+
+  const handleConfirmReservation = () => {
+    // Combine date and time into ISO string format
+    const orderDateTime = new Date(`${reservationData.date}T${reservationData.time}`).toISOString();
+
+    const transformedData = {
+      orderTime: orderDateTime,
+      type: true, // assuming true for reservation
+      address: "", // empty string since it's a reservation
+      fullname: reservationData.name,
+      phone: reservationData.phone,
+      note: reservationData.note || "",
+      userId: userId,
+      quantityTables: reservationData.tables,
+      orderIds: cartOrderIdList,
+    };
+
+    confirmReservationMutation.mutate(transformedData);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      {paymentMutation.isPending && <LoadingModal className="translate-x-0" />}
+      {(paymentMutation.isPending || confirmReservationMutation.isPending) && (
+        <LoadingModal className="translate-x-0" />
+      )}
       <div className="w-11/12 max-w-4xl rounded-lg bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-2xl font-semibold text-gray-800">Reservation Details</h2>
         <div className="mb-6 grid grid-cols-2 gap-6">
@@ -90,7 +128,7 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
 
         <div className="flex justify-end space-x-4">
           <button
-            onClick={() => setShowConfirmation(true)}
+            onClick={handleConfirmReservation}
             type="button"
             className="rounded-md bg-green-600 px-4 py-2 text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
           >
@@ -117,7 +155,10 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
                   Pay
                 </button>
                 <button
-                  onClick={() => setShowConfirmation(false)}
+                  onClick={() => {
+                    queryClient.invalidateQueries({ queryKey: ["cartList"] });
+                    setShowConfirmation(false);
+                  }}
                   className="rounded-md bg-gray-600 px-4 py-2 text-white shadow hover:bg-gray-700"
                 >
                   Cancel

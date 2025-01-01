@@ -21,3 +21,5 @@ export const updateCartItem = ({ orderId, data }) =>
   });
 
 export const fetchCartAmount = (cartId) => http.get(`carts/${cartId}`);
+
+export const confirmReservation = (reservationData) => http.post(`reservations`, reservationData);
