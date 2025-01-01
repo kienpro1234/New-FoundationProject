@@ -11,9 +11,11 @@ import { getTable } from "../../apis/tableApi";
 import { toast } from "react-toastify";
 import { FavContext } from "../../context/favContext";
 import { fetchFavList } from "../../apis/fav.api";
+import { fetchCartAmount } from "../../apis/cart.api";
 
 export default function HeaderMobile({ configImg, title }) {
   const { tableId, cartList, userId } = useContext(CartContext);
+  const cartId = localStorage.getItem("cartId");
   let favList = [];
   const token = getToken();
   const { favList: favListContext } = useContext(FavContext);
@@ -42,6 +44,23 @@ export default function HeaderMobile({ configImg, title }) {
 
   if (data) {
     dataTable = data.data.data.pageContent;
+  }
+
+  const cartAmountQuery = useQuery({
+    queryKey: ["cartAmount", userId],
+    queryFn: () => fetchCartAmount(cartId),
+    enabled: Boolean(!tableId && cartId),
+  });
+
+  let cartAmount = 0;
+  if (cartAmountQuery.data) {
+    cartAmount = cartAmountQuery.data.data.data.elementAmount;
+  }
+
+  if (dataTable.length > 0) {
+    cartAmount = dataTable.length;
+  } else if (cartAmountQuery.data && cartAmountQuery.data.data.data.elementAmount > 0) {
+    cartAmount = cartAmountQuery.data.data.data.elementAmount;
   }
 
   const handleSearchClick = () => {
@@ -194,16 +213,14 @@ export default function HeaderMobile({ configImg, title }) {
                       <div
                         className={`${classes["header-cart"]} flex size-10 items-center justify-center rounded-full bg-red-500 text-sm text-white`}
                       >
-                        {((cartList && cartList.length > 0) || (dataTable && dataTable.length > 0)) && (
+                        {cartAmount > 0 && (
                           <div className="absolute -right-[1px] -top-1 flex size-4 items-center justify-center rounded-full bg-blue-400">
                             {/* đếm số food đang ở trong table(giỏ hàng bằng cách fetch api gọi đến table, lấy số lượng rồi cho ra đây) */}
 
-                            {dataTable.length > 0 && (
-                              <span className="text-sm font-bold text-white">{dataTable.length}</span>
-                            )}
-                            {cartList.length > 0 && (
+                            {cartAmount > 0 && <span className="text-sm font-bold text-white">{cartAmount}</span>}
+                            {/* {cartList.length > 0 && (
                               <span className="text-sm font-bold text-white">{cartList.length}</span>
-                            )}
+                            )} */}
 
                             {/* <span className="text-sm font-bold text-white">2</span> */}
                           </div>

@@ -1,23 +1,50 @@
-import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import React, { useContext, useState } from "react";
+import { payOrders } from "../../../apis/tableApi";
+
+import { CartContext } from "../../../context/cartContext";
+import LoadingModal from "../../../components/LoadingModal/LoadingModal";
 
 export default function PopUpReservation({ handleClose, reservationData, cartItems }) {
+  console.log("cart items:", cartItems);
   console.log("reservationData:", reservationData);
+  const { userId } = useContext(CartContext);
   // Add state for confirmation popup
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  // Add payment handler
-  //   const handlePayment = async () => {
-  //     try {
-  //       // Add your API call here
-  //       // await paymentAPI(reservationData, cartItems);
-  //       setShowConfirmation(false);
-  //       handleClose();
-  //     } catch (error) {
-  //       console.error("Payment failed:", error);
-  //     }
-  //   };
+  const cartOrderIdList = cartItems.map((order) => order.orderId);
+  console.log("cartOrderIdList:", cartOrderIdList);
+
+  const paymentMutation = useMutation({
+    mutationFn: (data) => payOrders(data),
+    onSuccess: (data) => {
+      console.log("payment response data", data);
+      const paymentUrl = data.data.paymentUrl;
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+      }
+    },
+    onError: (err) => {
+      console.error("err payment", err);
+    },
+  });
+
+  const handlePayment = () => {
+    if (cartOrderIdList.length > 0) {
+      paymentMutation.mutate({
+        paymentMethod: "Vn-Pay",
+        userId: userId,
+        orderIds: [...cartOrderIdList],
+      });
+    } else {
+      toast.warning("Hiện không có order nào để thanh toán", {
+        position: "top-center",
+      });
+    }
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      {paymentMutation.isPending && <LoadingModal className="translate-x-0" />}
       <div className="w-11/12 max-w-4xl rounded-lg bg-white p-8 shadow-xl">
         <h2 className="mb-6 text-2xl font-semibold text-gray-800">Reservation Details</h2>
         <div className="mb-6 grid grid-cols-2 gap-6">
@@ -53,8 +80,8 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
           <span className="block text-base font-medium text-gray-700">Ordered Dishes</span>
           <div className="mt-3 h-64 overflow-y-auto rounded-md border border-gray-300 p-4">
             {cartItems.map((item, index) => (
-              <div key={index} className="mb-2 flex justify-between">
-                <span>{item.name}</span>
+              <div key={index} className="mb-2 flex justify-between p-2 hover:bg-gray-100">
+                <span>{item.dish.dishName}</span>
                 <span>{item.quantity}</span>
               </div>
             ))}
@@ -84,7 +111,7 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
               <h3 className="mb-6 text-xl font-semibold">Confirm Payment</h3>
               <div className="flex justify-end space-x-4">
                 <button
-                  //   onClick={handlePayment}
+                  onClick={handlePayment}
                   className="rounded-md bg-green-600 px-4 py-2 text-white shadow hover:bg-green-700"
                 >
                   Pay

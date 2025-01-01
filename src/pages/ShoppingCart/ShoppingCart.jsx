@@ -10,35 +10,42 @@ import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 import { Navigate } from "react-router-dom";
 import ReservationForm from "./ReservationForm.jsx/ReservationForm";
+import { getCartList } from "../../apis/cart.api";
+import { useQuery } from "@tanstack/react-query";
+import Pagination from "../../components/Pagination/Pagination";
+import useQueryParams from "../../hooks/useQueryParams";
 
 export default function ShoppingCart() {
+  const cartId = localStorage.getItem("cartId");
   // const { cartList } = useContext(CartContext);
   // cart list bây giờ sẽ gọi api lấy từ server, vì chỉ đăng nhập mới dùng được tính năng shopping cart
-  const dummyCartList = [
-    {
-      id: 1,
-      name: "Spicy Seasoned Seafood Noodles",
-      price: 2.29,
-      image: "https://source.unsplash.com/random/200x200/?noodles",
-      quantity: 2,
-    },
-    {
-      id: 2,
-      name: "Salted Pasta with mushroom sauce",
-      price: 2.69,
-      image: "https://source.unsplash.com/random/200x200/?pasta",
-      quantity: 1,
-    },
-    {
-      id: 3,
-      name: "Beef dumpling in hot soup",
-      price: 2.99,
-      image: "https://source.unsplash.com/random/200x200/?dumpling",
-      quantity: 3,
-    },
-  ];
 
-  const cartList = dummyCartList;
+  const queryParams = useQueryParams();
+  console.log("query params", queryParams);
+  const newQueryParams = {
+    ...queryParams,
+    pageNo: queryParams?.pageNo || 1,
+  };
+  const cartListQuery = useQuery({
+    queryKey: ["cartList", newQueryParams],
+    queryFn: () => getCartList(cartId, newQueryParams),
+  });
+
+  const cartListget100OrderQuery = useQuery({
+    queryKey: ["cartList"],
+    queryFn: () => getCartList(cartId, undefined, 100),
+  });
+
+  // console.log("cartListQuery", cartListQuery.data.data.data);
+  let cartList = [];
+  if (cartListQuery.data) {
+    cartList = cartListQuery.data.data.data.pageContent;
+  }
+
+  let cartListget100Order = [];
+  if (cartListget100OrderQuery.data) {
+    cartListget100Order = cartListget100OrderQuery.data.data.data.pageContent;
+  }
 
   const token = getToken();
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -64,26 +71,76 @@ export default function ShoppingCart() {
   return (
     <div className="min-h-screen">
       <HeaderMobile configImg={"!size-16 !rounded-full"} title={"cart"} />
+      {cartListQuery.isFetching ? (
+        <div className="mx-auto mt-9 grid max-w-7xl grid-cols-1 gap-9 px-4 md:grid-cols-2 md:gap-40">
+          {/* Left side skeleton */}
+          <div className="col-span-1">
+            {/* Skeleton for cart items */}
+            {[1, 2, 3].map((item) => (
+              <div key={item} role="status" className="mb-6 flex animate-pulse space-x-4 rounded-xl border p-4">
+                {/* Image skeleton */}
+                <div className="h-24 w-24 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                <div className="flex-1 space-y-4">
+                  {/* Title skeleton */}
+                  <div className="h-4 w-3/4 rounded-full bg-gray-200 dark:bg-gray-700" />
+                  {/* Price skeleton */}
+                  <div className="h-3 w-1/4 rounded-full bg-gray-200 dark:bg-gray-700" />
+                  {/* Quantity controls skeleton */}
+                  <div className="flex items-center space-x-3">
+                    <div className="h-8 w-24 rounded-lg bg-gray-200 dark:bg-gray-700" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-      {!cartList || cartList.length === 0 ? (
-        <div className="flex max-h-[467px] items-center justify-center">
-          <img src={noCartImg} alt="no-cart-img" />
+          {/* Right side skeleton */}
+          <div className="col-span-1">
+            <div role="status" className="animate-pulse rounded-xl border p-6">
+              <div className="mb-6 space-y-4">
+                <div className="h-4 w-full rounded-full bg-gray-200 dark:bg-gray-700" />
+                <div className="h-4 w-3/4 rounded-full bg-gray-200 dark:bg-gray-700" />
+              </div>
+              {/* Form fields skeleton */}
+              {[1, 2, 3].map((item) => (
+                <div key={item} className="mb-4 space-y-2">
+                  <div className="h-3 w-1/4 rounded-full bg-gray-200 dark:bg-gray-700" />
+                  <div className="h-10 w-full rounded-lg bg-gray-200 dark:bg-gray-700" />
+                </div>
+              ))}
+              {/* Button skeleton */}
+              <div className="mt-6 h-12 w-full rounded-lg bg-gray-200 dark:bg-gray-700" />
+            </div>
+          </div>
         </div>
       ) : (
-        <div className="mx-auto mt-9 grid max-w-7xl grid-cols-1 gap-9 px-4 md:grid-cols-2 md:gap-40">
-          {/* left side */}
-          <div className="col-span-1 flex flex-col gap-3">
-            {(!cartList || cartList.length === 0) && (
-              <div className="text-lg text-red-500">Chưa có gì trong giỏ hàng</div>
-            )}
-            {cartList && cartList.length > 0 && cartList.map((item) => <CartItem key={item.id} food={item} />)}
-          </div>
+        <>
+          {!cartList || cartList.length === 0 ? (
+            <div className="flex max-h-[467px] items-center justify-center">
+              <img src={noCartImg} alt="no-cart-img" />
+            </div>
+          ) : (
+            <div className="mx-auto mt-9 grid max-w-7xl grid-cols-1 gap-9 px-4 md:grid-cols-2 md:gap-40">
+              {/* left side */}
+              <div className="col-span-1 flex flex-col gap-3">
+                {(!cartList || cartList.length === 0) && (
+                  <div className="text-lg text-red-500">Chưa có gì trong giỏ hàng</div>
+                )}
+                {cartList && cartList.length > 0 && cartList.map((item) => <CartItem key={item.orderId} food={item} />)}
+                <Pagination
+                  totalPages={cartListQuery.data.data.data.totalPages}
+                  queryParams={queryParams}
+                  pathname={"/cart"}
+                />
+              </div>
 
-          {/* right side */}
-          <div className="col-span-1">
-            <ReservationForm cartItems={cartList} />
-          </div>
-        </div>
+              {/* right side */}
+              <div className="col-span-1">
+                <ReservationForm cartItems={cartListget100Order} />
+              </div>
+            </div>
+          )}
+        </>
       )}
 
       <FooterCopyright

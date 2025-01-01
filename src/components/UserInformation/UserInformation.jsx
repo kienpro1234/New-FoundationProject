@@ -24,6 +24,8 @@ export default function UserInformation({ user }) {
   const [gender, setGender] = useState(""); // Trạng thái lưu giá trị giới tính
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || "");
   const queryClient = useQueryClient();
+  const [showImagePopup, setShowImagePopup] = useState(false);
+  const [newImageUrl, setNewImageUrl] = useState("");
 
   console.log("data", {
     userName,
@@ -93,7 +95,7 @@ export default function UserInformation({ user }) {
       data: {
         firstName: userName,
         lastName: user.lastName,
-        // imageUrl: "",
+        imageUrl: user.imageUrl || null,
         email: user.email,
         address: user.address,
         gender: gender,
@@ -132,6 +134,12 @@ export default function UserInformation({ user }) {
           <div className={`${classes["userinfo-content-update"]} col-md-12`}>
             <div className={`${classes["avatar-right"]}`}>
               <img src={user.imageUrl} alt="" />
+              <button
+                onClick={() => setShowImagePopup(true)}
+                className="absolute right-2 top-2 rounded-full bg-white p-2 shadow-md hover:bg-gray-100"
+              >
+                <i className="fa fa-edit"></i>
+              </button>
             </div>
             {/* sua den day */}
 
@@ -363,6 +371,12 @@ export default function UserInformation({ user }) {
         <div className={`${classes["userinfo-content-update"]} col-md-5`}>
           <div className={`${classes["avatar-right"]}`}>
             <img src={user.imageUrl} alt="" />
+            <button
+              onClick={() => setShowImagePopup(true)}
+              className="absolute right-2 top-2 rounded-full bg-white p-2 shadow-md hover:bg-gray-100"
+            >
+              <i className="fa fa-edit"></i>
+            </button>
           </div>
 
           <h1 className={`${classes["profile-picture-title"]} ${classes["contact-title"]}`}>{"Contact information"}</h1>
@@ -454,9 +468,53 @@ export default function UserInformation({ user }) {
       </div>
     );
   }
+
+  const handleImageUpdate = (e) => {
+    e.preventDefault();
+    updateUserMutation.mutate({
+      data: {
+        ...user,
+        imageUrl: newImageUrl,
+      },
+      userId,
+    });
+    setShowImagePopup(false);
+  };
+
   return (
     <>
       <div className="userInformation">{content}</div>
+      {showImagePopup &&
+        createPortal(
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/70">
+            <div className="relative w-96 rounded-lg bg-white p-6">
+              <h3 className="mb-4 text-lg font-semibold">Update Profile Picture</h3>
+              <form onSubmit={handleImageUpdate}>
+                <input
+                  type="text"
+                  placeholder="Paste image URL here"
+                  className="w-full rounded border p-2"
+                  value={newImageUrl}
+                  onChange={(e) => setNewImageUrl(e.target.value)}
+                  required
+                />
+                <div className="mt-4 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowImagePopup(false)}
+                    className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600">
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>,
+          document.querySelector("#root"),
+        )}
     </>
   );
 }

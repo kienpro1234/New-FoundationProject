@@ -10,13 +10,15 @@ import { CartContext } from "../../context/cartContext";
 import { RiAdminFill } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFavList } from "../../apis/fav.api";
+import { fetchCartAmount } from "../../apis/cart.api";
 
 //THêm class riêng cho esapase, tắt luôn, chứ k chờ
 export default function Header({ className, ...props }) {
   //Dùng redux hay context api quản lý state sau
   let favList = [];
   const { favList: favListContext } = useContext(FavContext);
-  const { cartList, userId } = useContext(CartContext);
+  const cartId = localStorage.getItem("cartId");
+  const { userId } = useContext(CartContext);
   const inputDiv = useRef(null);
   const inputRef = useRef(null);
   const [searchKeyWord, setSearchKeyWord] = useState("");
@@ -98,6 +100,19 @@ export default function Header({ className, ...props }) {
 
     setSearchKeyWord("");
   };
+
+  console.log("tokennnn", Boolean(cartId));
+
+  const cartAmountQuery = useQuery({
+    queryKey: ["cartAmount", userId],
+    queryFn: () => fetchCartAmount(cartId),
+    enabled: Boolean(cartId),
+  });
+
+  let cartAmount = 0;
+  if (cartAmountQuery.data) {
+    cartAmount = cartAmountQuery.data.data.data.elementAmount;
+  }
 
   let content;
 
@@ -202,9 +217,9 @@ export default function Header({ className, ...props }) {
         <button>
           <Link to={"/cart"} className="fa fa-shopping-cart text-white"></Link>
         </button>
-        {cartList.length > 0 && (
+        {cartAmount > 0 && (
           <span className="absolute -top-1 left-0 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-            {cartList.length}
+            {cartAmount}
           </span>
         )}
       </div>

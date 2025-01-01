@@ -17,6 +17,7 @@ const initialFormData = {
   ingredient: "",
   portion: "",
   cookingTime: "",
+  servedAmount: "",
 };
 
 export default function AddFoodForm() {
@@ -174,6 +175,15 @@ export default function AddFoodForm() {
             placeholder={"Portion"}
           />
 
+          <Input
+            value={selectedValues.servedAmount}
+            onChange={handleChange}
+            name="servedAmount"
+            className={"w-full border border-black focus:shadow-none"}
+            placeholder={"Served Amount"}
+          />
+        </div>
+        <div className="mb-[12px]">
           <Input
             value={selectedValues.image}
             onChange={handleChange}

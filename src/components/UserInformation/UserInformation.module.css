@@ -1,117 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
-.userInformation {}
-
-.user-title {
-    font-size: 2rem;
+.userInformation {
 }
 
-.userInfo-content {}
+.user-title {
+  font-size: 2rem;
+}
+
+.userInfo-content {
+}
 
 .userinfo-content-info,
 .userinfo-content-update {
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-    padding: 25px;
-    background-color: white;
-    border-radius: 10px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  padding: 25px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .profile-picture {
-    margin-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
 }
 
 .profile-picture-title {
-    border-bottom: 1px solid black;
-    padding-bottom: 1.6rem;
-    margin-bottom: 1.6rem;
-    font-size: 1.5rem;
-    font-weight: 600;
+  border-bottom: 1px solid black;
+  padding-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .profile-picure-right {
-    position: relative;
-    top: 15px;
-    right: 6rem;
+  position: relative;
+  top: 15px;
+  right: 6rem;
 }
 
 .profile-picture img {
-    width: 80px;
-    height: 80px;
-    border-radius: 44px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 80px;
+  height: 80px;
+  border-radius: 44px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .passwordInput {
-    position: relative;
+  position: relative;
 }
 
 .toggleEye-button {
-    position: absolute;
-    right: 3%;
-    top: 50%;
-    transform: translateY(-50%);
-
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .form-userInfo-left div p span {
-    font-weight: 500;
-    font-size: 1.4rem;
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 
 .userinfo-content-update {
-    position: relative;
+  position: relative;
 }
 
 .avatar-right {
-
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .avatar-right img {
-    width: 205px;
-    height: 205px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid white;
-    object-position: 50% 40%;
+  width: 205px;
+  height: 205px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid white;
+  object-position: 50% 40%;
 }
 
 .contact-title {
-    margin-top: 100px;
-    text-align: center;
+  margin-top: 100px;
+  text-align: center;
 }
 
 .contact-info-title h3 {
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-    font-weight: 500;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 h1.profile-picture-title {
-    font-size: 36px;
+  font-size: 36px;
 }
 
-@media screen and (max-width:768px) {
-    /* Chỉnh chữ nếu cần */
-    /* h1.profile-picture-title {
+@media screen and (max-width: 768px) {
+  /* Chỉnh chữ nếu cần */
+  /* h1.profile-picture-title {
         font-size: 24px;
     } */
 }
 
 @media screen and (max-width: 582px) {
-    /* NƠI CHỈNH ẢNH Ở DƯỚI 582PX */
-    .avatar-right {
-        top: -70px;
-    }
-    .avatar-right img {
-        width: 140px;
-        height: 140px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 1px solid white;
-        object-position: 50% 40%;
-    }
+  /* NƠI CHỈNH ẢNH Ở DƯỚI 582PX */
+  .avatar-right {
+    top: -70px;
+  }
+  .avatar-right img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid white;
+    object-position: 50% 40%;
+  }
 }

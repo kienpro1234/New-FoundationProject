@@ -101,7 +101,7 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
     mutationFn: deleteFood,
     onSuccess: () => {
       toast.success("Xóa thành công");
-
+      setIdToDelete("");
       queryClient.invalidateQueries(["menu"]);
     },
     onError: (err) => {
@@ -132,7 +132,6 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
 
   const handleConfirmDelete = (id) => {
     deleteMutation.mutate(id);
-    setIdToDelete("");
   };
 
   const clickEdit = (food) => () => {
@@ -269,9 +268,9 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
                       size={"sm"}
                       triggeredButton={
                         <Button
-                          disabled={food.status === "Sold Out"}
+                          disabled={food.status === "Out of stock"}
                           className={classNames(`food-review-button`, {
-                            "cursor-not-allowed !bg-gray-500": food.status === "Sold Out",
+                            "cursor-not-allowed !bg-gray-500": food.status === "Out of stock",
                           })}
                         >
                           ORDER
@@ -304,22 +303,30 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
                       </button>
 
                       {idToDelete === food.dishId && (
-                        <div className={`${classes["pop-up"]} shadow-lg`}>
-                          <p className="mb-3 text-center">Are you sure to delete?</p>
-                          <button
-                            onClick={handleCancelDelete}
-                            type="button"
-                            className="mb-2 me-2 rounded-lg border-2 border-red-700 px-5 py-2.5 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900"
-                          >
-                            No
-                          </button>
-                          <button
-                            onClick={() => handleConfirmDelete(food.dishId)}
-                            type="button"
-                            className="mb-2 me-2 rounded-lg border-2 border-blue-700 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-blue-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
-                          >
-                            Yes
-                          </button>
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+                          <div className={`${classes["pop-up"]} shadow-lg`}>
+                            <p className="mb-3 text-center">Are you sure to delete?</p>
+                            <button
+                              onClick={handleCancelDelete}
+                              type="button"
+                              className="mb-2 me-2 rounded-lg border-2 border-red-700 px-5 py-2.5 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900"
+                            >
+                              No
+                            </button>
+                            <button
+                              disabled={deleteMutation.isPending}
+                              onClick={() => handleConfirmDelete(food.dishId)}
+                              type="button"
+                              className={classNames(
+                                "mb-2 me-2 rounded-lg border-2 border-blue-700 px-5 py-2.5 text-center text-sm font-medium text-blue-700 hover:bg-blue-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-blue-300 dark:border-blue-500 dark:text-blue-500 dark:hover:bg-blue-500 dark:hover:text-white dark:focus:ring-blue-800",
+                                {
+                                  "cursor-not-allowed !bg-gray-500": deleteMutation.isPending,
+                                },
+                              )}
+                            >
+                              {deleteMutation.isPending ? "Deleting..." : "Yes"}
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>

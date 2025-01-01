@@ -3,14 +3,15 @@ import PopUpReservation from "../PopUpReservation.jsx/PopUpReservation";
 
 export default function ReservationForm({ cartItems }) {
   const [isOpen, setIsOpen] = useState(false);
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("user ne", user);
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
   const [reservationData, setReservationData] = useState({
     date: "",
     time: "",
-    name: "",
-    phone: "",
+    name: `${user?.firstName} ${user?.lastName}`,
+    phone: user?.phoneNumber,
     tables: 1,
     note: "",
   });

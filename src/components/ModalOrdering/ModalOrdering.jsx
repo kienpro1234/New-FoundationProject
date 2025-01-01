@@ -18,6 +18,7 @@ export default function ModalOrdering({ title, modalId, size, triggeredButton, f
   const isUsingTableAndNotLogin = tableId && !getAccessToken();
   const isNotUsingTableAndLogin = !tableId && getAccessToken();
   const isNotUsingTableAndNotLogin = !tableId && !getAccessToken();
+  const cartId = localStorage.getItem("cartId");
 
   const handleDecre = (Car) => {
     if (quantity === 1) {
@@ -43,7 +44,9 @@ export default function ModalOrdering({ title, modalId, size, triggeredButton, f
         quantity: Number(quantity),
         userId: userId,
         dishId: foodId,
-        positionId: tableId,
+        positionId: tableId || undefined,
+        //Tí thay userid bằng cartid
+        cartId: !tableId && cartId ? cartId : undefined,
       });
     },
 
@@ -78,13 +81,25 @@ export default function ModalOrdering({ title, modalId, size, triggeredButton, f
       setQuantity(1);
     } else if (isNotUsingTableAndLogin) {
       // Gọi mutation add vào giỏ hàng
+      mutate(undefined, {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["cartAmount", userId],
+          });
+          toast.success("Đã thêm vào giỏ hàng", {
+            position: "top-center",
+          });
+        },
+      });
     }
   };
 
   if (isPending) {
     return createPortal(
       <div className="absolute left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/70">
-        <LoadingIndicator />
+        <div className="translate-x-[20px]">
+          <LoadingIndicator />
+        </div>
       </div>,
       document.querySelector("#root"),
     );
