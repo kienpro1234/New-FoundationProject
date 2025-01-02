@@ -216,7 +216,7 @@ export default function Table() {
             table {tableId}
           </h1>
           {/* Content top */}
-          <div className="min-h-[400px] py-20">
+          <div className="min-h-[533px] py-20">
             {/* flex*/}
             <div className="flex flex-col gap-3">
               {dataTable.map((order) => (
