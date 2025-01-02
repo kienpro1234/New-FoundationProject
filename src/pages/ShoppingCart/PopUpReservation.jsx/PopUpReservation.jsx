@@ -14,6 +14,7 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
   const queryClient = useQueryClient();
   // Add state for confirmation popup
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [reservationId, setReservationId] = useState(null);
 
   const cartOrderIdList = cartItems.map((order) => order.orderId);
   console.log("cartOrderIdList:", cartOrderIdList);
@@ -37,6 +38,7 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
       paymentMutation.mutate({
         paymentMethod: "Vn-Pay",
         userId: userId,
+        reservationId: reservationId,
         orderIds: [...cartOrderIdList],
       });
     } else {
@@ -48,20 +50,22 @@ export default function PopUpReservation({ handleClose, reservationData, cartIte
 
   const confirmReservationMutation = useMutation({
     mutationFn: confirmReservation,
-    onSuccess: () => {
+    onSuccess: (data) => {
       toast.success("Đặt lịch thành công");
+      setReservationId(data.data.data.reservationId);
       setShowConfirmation(true);
       // queryClient.invalidateQueries({ queryKey: ["cartList"] });
     },
     onError: (error) => {
       console.error("error confirm reservation", error);
-      toast.error("Đặt lịch thất bại");
+      toast.error(`Đã có lịch đặt trước vào khung thời gian này`, { autoClose: 2000 });
     },
   });
 
   const handleConfirmReservation = () => {
     // Combine date and time into ISO string format
-    const orderDateTime = new Date(`${reservationData.date}T${reservationData.time}`).toISOString();
+    const orderDateTime = `${reservationData.date}T${reservationData.time}`;
+    console.log("order date time", orderDateTime);
 
     const transformedData = {
       orderTime: orderDateTime,

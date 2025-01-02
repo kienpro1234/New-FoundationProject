@@ -124,7 +124,7 @@ const TableOrders = () => {
                   <img src={order.dish.image} alt={order.dish.dishName} className="size-32 rounded object-cover" />
                 </div>
                 <div className="mt-2 text-sm text-gray-600">
-                  <p>Customer: {order.user.emailOrPhone}</p>
+                  <p>Customer: {`${order.user.firstName} ${order.user.lastName}`}</p>
                   <p>Table: {order.position.positionName}</p>
                 </div>
               </div>

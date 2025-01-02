@@ -14,6 +14,7 @@ import { getCartList } from "../../apis/cart.api";
 import { useQuery } from "@tanstack/react-query";
 import Pagination from "../../components/Pagination/Pagination";
 import useQueryParams from "../../hooks/useQueryParams";
+import { toast } from "react-toastify";
 
 export default function ShoppingCart() {
   const cartId = localStorage.getItem("cartId");
@@ -66,6 +67,13 @@ export default function ShoppingCart() {
   if (!token) {
     alert("Vui lòng đăng nhập để xem giỏ hàng");
     return <Navigate to="/login" />;
+  }
+
+  if (cartListQuery.isError) {
+    toast.error(`${cartListQuery.error.response?.data?.message}`, {
+      position: "top-center",
+      autoClose: 3000,
+    });
   }
 
   return (

@@ -17,6 +17,7 @@ export default function ManageUsers() {
   const {
     data: users,
     isLoading,
+    isFetching,
     refetch,
   } = useQuery({
     queryKey: ["users"],
@@ -79,7 +80,8 @@ export default function ManageUsers() {
       firstName: user?.firstName,
       lastName: user?.lastName,
       imageUrl: user?.imageUrl,
-      emailOrPhone: user?.emailOrPhone,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber,
       address: user?.address,
       gender: user?.gender,
       dob: user?.dob,
@@ -129,6 +131,7 @@ export default function ManageUsers() {
         <h2 className="mb-4 text-2xl font-bold">Manage Users</h2>
         {deleteUserMutation.isPending && <LoadingModal />}
         {updateUserMutation.isPending && <LoadingModal />}
+        {isFetching && <LoadingModal />}
         {selectedUserForInfo && (
           <UserInfoModal userId={selectedUserForInfo} onClose={() => setSelectedUserForInfo(null)} />
         )}
@@ -175,7 +178,17 @@ export default function ManageUsers() {
                   <input
                     type="text"
                     name="emailOrPhone"
-                    value={editingUser.emailOrPhone || ""}
+                    value={editingUser.email || ""}
+                    onChange={handleInputChange}
+                    className="w-full rounded border p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="mb-1 block text-sm font-medium dark:text-gray-600">Email/Phone</label>
+                  <input
+                    type="text"
+                    name="emailOrPhone"
+                    value={editingUser.phoneNumber || ""}
                     onChange={handleInputChange}
                     className="w-full rounded border p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />

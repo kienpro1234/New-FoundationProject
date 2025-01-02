@@ -57,7 +57,7 @@ export default function ModalOrdering({ title, modalId, size, triggeredButton, f
         setUserId(newUserId);
         setUserIdToLS(newUserId);
       }
-      console.log("data o dy", data.data.data.user.userId);
+
       queryClient.invalidateQueries({
         queryKey: ["table", tableId],
       });
@@ -83,6 +83,7 @@ export default function ModalOrdering({ title, modalId, size, triggeredButton, f
       // Gọi mutation add vào giỏ hàng
       mutate(undefined, {
         onSuccess: () => {
+          console.log("co succes");
           queryClient.invalidateQueries({
             queryKey: ["cartAmount", userId],
           });

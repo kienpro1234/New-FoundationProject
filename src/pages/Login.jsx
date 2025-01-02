@@ -64,6 +64,7 @@ export default function Login() {
       const accessToken = data.data.accessToken;
       const userId = data.data.user.userId;
       const cartId = data.data.user.cart.cartId;
+      const user = data.data.user;
       // console.log("accessToken", accessToken);
       // console.log("userId", userId);
       const role = data.data.user.roles.length > 1 ? "admin" : "user";
@@ -73,6 +74,7 @@ export default function Login() {
         localStorage.setItem("userId", userId);
         localStorage.setItem("role", role);
         localStorage.setItem("cartId", cartId);
+        localStorage.setItem("user", JSON.stringify(user));
         setUserId(userId);
         // setSocket(io("https://restaurant-ordering-webapp-0-7-7-release.onrender.com"));
       }

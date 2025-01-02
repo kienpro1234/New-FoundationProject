@@ -64,7 +64,7 @@ export default function UserReservations() {
   } = useQuery({
     queryKey: ["userReservations", userId, newQueryParams],
     queryFn: async () => {
-      const response = await http.get(`reservations/${userId}`, {
+      const response = await http.get(`reservations/user/${userId}`, {
         params: {
           ...newQueryParams,
           pageSize: 10,
@@ -123,6 +123,7 @@ export default function UserReservations() {
         paymentMutation.mutate({
           paymentMethod: "Vn-Pay",
           userId: userId,
+          reservationId: reservationId,
           orderIds: orderIds,
         });
       } else {
@@ -148,7 +149,7 @@ export default function UserReservations() {
     switch (status.toLowerCase()) {
       case "pending":
         return <Chip icon={<PendingIcon />} label="Đang chờ xác nhận" color="warning" sx={chipStyle} />;
-      case "reservation confirmed":
+      case "paid":
         return <Chip icon={<CheckCircleIcon />} label="Đã xác nhận" color="success" sx={chipStyle} />;
       case "cancelled":
         return <Chip icon={<CancelIcon />} label="Đã hủy" color="error" sx={chipStyle} />;
@@ -228,7 +229,7 @@ export default function UserReservations() {
       const matchesSearch = formattedDate.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesStatus =
         statusFilter === "all" ||
-        (statusFilter === "confirmed" && row.status.toLowerCase() === "reservation confirmed") ||
+        (statusFilter === "confirmed" && row.status.toLowerCase() === "paid") ||
         (statusFilter === "pending" && row.status.toLowerCase() === "pending") ||
         (statusFilter === "cancelled" && row.status.toLowerCase() === "cancelled");
       return matchesSearch && matchesStatus;
@@ -236,7 +237,9 @@ export default function UserReservations() {
 
   return (
     <Box className="container mx-auto px-4 py-8">
-      {(confirmMutation.isPending || deleteMutation.isPending) && <LoadingModal className="translate-x-0" />}
+      {(confirmMutation.isPending || deleteMutation.isPending || paymentMutation.isPending) && (
+        <LoadingModal className="translate-x-0" />
+      )}
       <div className="mb-4 flex items-center justify-between">
         <Typography variant="h4">Your reservations</Typography>
         <Link
@@ -269,14 +272,14 @@ export default function UserReservations() {
           <Table sx={{ minWidth: 650 }} aria-labelledby="tableTitle">
             <TableHead>
               <TableRow>
-                <TableCell>Thời gian đặt</TableCell>
-                <TableCell>Vị trí bàn</TableCell>
-                <TableCell>Tổng tiền</TableCell>
-                <TableCell>Món đã đặt</TableCell>
-                <TableCell>Loại</TableCell>
-                <TableCell>Trạng thái</TableCell>
-                <TableCell>Ghi chú</TableCell>
-                <TableCell>Thao tác</TableCell>
+                <TableCell width="15%">Thời gian đặt</TableCell>
+                <TableCell width="15%">Vị trí bàn</TableCell>
+                <TableCell width="15%">Tổng tiền</TableCell>
+                <TableCell width="20%">Món đã đặt</TableCell>
+                <TableCell width="10%">Loại</TableCell>
+                <TableCell width="15%">Trạng thái</TableCell>
+                <TableCell width="15%">Ghi chú</TableCell>
+                <TableCell width="10%">Thao tác</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -305,9 +308,17 @@ export default function UserReservations() {
                   <TableCell>{row.type ? "Tại nhà hàng" : "Mang về"}</TableCell>
                   <TableCell>{getStatusChip(row.status)}</TableCell>
                   <TableCell>{row.note || "Không có ghi chú"}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                     {row.status.toLowerCase() === "pending" && (
-                      <>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          whiteSpace: "nowrap",
+                          gap: 1,
+                        }}
+                      >
                         <Tooltip title="Xác nhận và thanh toán đặt chỗ">
                           <IconButton
                             color="primary"
@@ -331,7 +342,7 @@ export default function UserReservations() {
                             <DeleteIcon />
                           </IconButton>
                         </Tooltip>
-                      </>
+                      </Box>
                     )}
                   </TableCell>
                 </TableRow>
@@ -365,27 +376,30 @@ export default function UserReservations() {
                 <ListItemText
                   primary={order.dish.dishName}
                   secondary={
-                    <>
-                      <Typography component="span" variant="body2" color="text.primary">
-                        Số lượng: {order.quantity}
-                      </Typography>
-                      <br />
-                      <Typography component="span" variant="body2" color="text.primary">
+                    <Typography
+                      component="div"
+                      variant="body2"
+                      color="text.primary"
+                      sx={{ display: "flex", gap: 2, mt: 1 }}
+                    >
+                      <span>SL: {order.quantity}</span>
+                      <span>•</span>
+                      <span>
                         Đơn giá:{" "}
                         {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
                         }).format(order.dish.price * 23000)}
-                      </Typography>
-                      <br />
-                      <Typography component="span" variant="body2" color="text.primary">
+                      </span>
+                      <span>•</span>
+                      <span>
                         Tổng:{" "}
                         {new Intl.NumberFormat("vi-VN", {
                           style: "currency",
                           currency: "VND",
                         }).format(order.dish.price * order.quantity * 23000)}
-                      </Typography>
-                    </>
+                      </span>
+                    </Typography>
                   }
                 />
               </ListItem>

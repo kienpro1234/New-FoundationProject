@@ -47,7 +47,7 @@ export default function UserOrdersList({ userId, onClose }) {
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Quantity</th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Total Price</th>
                 <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Position</th>
+                <th className="px-6 py-3 text-left text-xs font-medium uppercase text-gray-500">Order Type</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
@@ -72,7 +72,7 @@ export default function UserOrdersList({ userId, onClose }) {
                       {order.status ? "Đã thanh toán" : "Chưa thanh toán"}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-4">{order.position.positionName}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{order.position?.positionName || "Đặt trước"}</td>
                 </tr>
               ))}
             </tbody>
