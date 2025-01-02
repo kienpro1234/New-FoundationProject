@@ -149,7 +149,11 @@ export default function CustomerReview({ dishId }) {
                 ></div>
               </div>
               <span className={`${classes["percent"]}`}>
-                {data?.rank5 === "NaN" || data?.rank5 === 0 ? 0 : data?.rank5.toFixed(2) || 0}%
+                {data?.rank5 === "NaN" || data?.rank5 === 0
+                  ? 0
+                  : Number.isInteger(data?.rank5)
+                    ? `${data?.rank5}%`
+                    : `${data?.rank5.toFixed(2)}%`}
               </span>
             </div>
             <div className={`${classes["rv-rating-row"]}`}>
@@ -164,7 +168,11 @@ export default function CustomerReview({ dishId }) {
                 ></div>
               </div>
               <span className={`${classes["percent"]}`}>
-                {data?.rank4 === "NaN" || data?.rank4 === 0 ? 0 : data?.rank4.toFixed(2) || 0}%
+                {data?.rank4 === "NaN" || data?.rank4 === 0
+                  ? 0
+                  : Number.isInteger(data?.rank4)
+                    ? `${data?.rank4}%`
+                    : `${data?.rank4.toFixed(2)}%`}
               </span>
             </div>
             <div className={`${classes["rv-rating-row"]}`}>
@@ -179,7 +187,11 @@ export default function CustomerReview({ dishId }) {
                 ></div>
               </div>
               <span className={`${classes["percent"]}`}>
-                {data?.rank3 === "NaN" || data?.rank3 === 0 ? 0 : data?.rank3.toFixed(2) || 0}%
+                {data?.rank3 === "NaN" || data?.rank3 === 0
+                  ? 0
+                  : Number.isInteger(data?.rank3)
+                    ? `${data?.rank3}%`
+                    : `${data?.rank3.toFixed(2)}%`}
               </span>
             </div>
             <div className={`${classes["rv-rating-row"]}`}>
@@ -194,7 +206,11 @@ export default function CustomerReview({ dishId }) {
                 ></div>
               </div>
               <span className={`${classes["percent"]}`}>
-                {data?.rank2 === "NaN" || data?.rank2 === 0 ? 0 : data?.rank2.toFixed(2) || 0}%
+                {data?.rank2 === "NaN" || data?.rank2 === 0
+                  ? 0
+                  : Number.isInteger(data?.rank2)
+                    ? `${data?.rank2}%`
+                    : `${data?.rank2.toFixed(2)}%`}
               </span>
             </div>
             <div className={`${classes["rv-rating-row"]}`}>
@@ -209,7 +225,11 @@ export default function CustomerReview({ dishId }) {
                 ></div>
               </div>
               <span className={`${classes["percent"]}`}>
-                {data?.rank1 === "NaN" || data?.rank1 === 0 ? 0 : data?.rank1.toFixed(2) || 0}%
+                {data?.rank1 === "NaN" || data?.rank1 === 0
+                  ? 0
+                  : Number.isInteger(data?.rank1)
+                    ? `${data?.rank1}%`
+                    : `${data?.rank1.toFixed(2)}%`}
               </span>
             </div>
           </div>

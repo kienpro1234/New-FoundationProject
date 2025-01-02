@@ -48,7 +48,7 @@ export default function PaymentBill({ orders, onClose }) {
             <tfoot>
               <tr>
                 <td colSpan={3}>
-                  <div className="translate-x-[86px] text-right">Total: {total}</div>
+                  <div className="translate-x-[86px] text-right">Total: ${total.toFixed(2)}</div>
                 </td>
               </tr>
             </tfoot>
