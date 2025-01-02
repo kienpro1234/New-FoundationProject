@@ -27,6 +27,8 @@ import Bill from "./pages/Bill/Bill";
 import PaymentsList from "./pages/admin/ManagePayments";
 import ManageTable from "./pages/admin/ManageTables";
 import VerifyUser from "./pages/VerifyUser";
+import ManageReservation from "./pages/admin/ManageReservation";
+import UserReservations from "./components/UserInformation/UserReservations";
 
 function RejectedRoute() {
   const token = getToken();
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
           {
             path: "/admin/tables",
             element: <ManageTable />,
+          },
+          {
+            path: "/admin/reservations",
+            element: <ManageReservation />,
           },
         ],
       },
@@ -131,6 +137,10 @@ const router = createBrowserRouter([
   {
     path: `/api/positions/:tableId`,
     element: <Table />,
+  },
+  {
+    path: "/reservations",
+    element: <UserReservations />,
   },
 ]);
 

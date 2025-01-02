@@ -78,8 +78,8 @@ const TableOrders = () => {
     enabled: !!selectedTable, // Only fetch when a table is selected
   });
 
-  if (isTablesLoading) return <div className="!ml-[200px] p-6">Loading tables...</div>;
-  if (tablesError) return <div className="!ml-[200px] p-6">Error loading tables: {tablesError.message}</div>;
+  if (isTablesLoading) return <div className="!ml-[250px] p-6">Loading tables...</div>;
+  if (tablesError) return <div className="!ml-[250px] p-6">Error loading tables: {tablesError.message}</div>;
 
   return (
     <div>

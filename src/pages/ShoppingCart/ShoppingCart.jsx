@@ -116,7 +116,7 @@ export default function ShoppingCart() {
       ) : (
         <>
           {!cartList || cartList.length === 0 ? (
-            <div className="flex max-h-[467px] items-center justify-center">
+            <div className="flex max-h-[491px] items-center justify-center">
               <img src={noCartImg} alt="no-cart-img" />
             </div>
           ) : (

@@ -119,7 +119,7 @@ export default function ManageUsers() {
   };
 
   if (isLoading) {
-    return <div className="p-4 text-center">Loading...</div>;
+    return <div className="!ml-[250px] p-6">Loading...</div>;
   }
 
   return (
@@ -127,7 +127,6 @@ export default function ManageUsers() {
       <AdminNavbar />
       <div className="ml-[240px] p-4">
         <h2 className="mb-4 text-2xl font-bold">Manage Users</h2>
-
         {deleteUserMutation.isPending && <LoadingModal />}
         {updateUserMutation.isPending && <LoadingModal />}
         {selectedUserForInfo && (

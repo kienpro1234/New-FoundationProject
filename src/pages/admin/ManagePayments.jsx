@@ -28,8 +28,8 @@ const PaymentsList = () => {
     console.log("paysmentsData", paymentsData);
   }
 
-  if (isLoading) return <div className="p-4 text-center">Loading...</div>;
-  if (isError) return <div className="p-4 text-center text-red-500">{error.message}</div>;
+  if (isLoading) return <div className="!ml-[250px] p-6">Loading...</div>;
+  if (isError) return <div className="!ml-[250px] p-6 text-red-500">{error.message}</div>;
 
   const payments = paymentsData.pageContent;
 

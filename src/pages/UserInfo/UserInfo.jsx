@@ -4,7 +4,7 @@ import UserInformation from "../../components/UserInformation/UserInformation";
 import UserOrderList from "../../components/UserInformation/UserOrderList";
 import { useContext, useEffect } from "react";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import LoadingIndicator from "../../components/UI/LoadingIndicator";
 import ErrorBlock from "../../components/UI/ErrorBlock";
@@ -15,6 +15,7 @@ import { CartContext } from "../../context/cartContext";
 import { fetchOrderList } from "../../apis/order.api";
 import useQueryParams from "../../hooks/useQueryParams";
 import Pagination from "../../components/Pagination/Pagination";
+import UserReservations from "../../components/UserInformation/UserReservations";
 
 export default function UserInfo() {
   const queryParams = useQueryParams();
@@ -113,6 +114,13 @@ export default function UserInfo() {
             queryParams={queryParams}
             pathname={"/userinfo"}
           />
+          <div className="max-auto mt-12 h-[1px] bg-slate-500"></div>
+          <div>
+            <Link to="/reservations">
+              <h3 className="mt-6 text-3xl font-bold text-black underline hover:!text-orange-500">Your Reservations</h3>
+              <span className="text-sm text-slate-500">(Click for details)</span>
+            </Link>
+          </div>
         </div>
       </>
     );
