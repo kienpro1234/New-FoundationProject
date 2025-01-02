@@ -289,7 +289,8 @@ export default function UserReservations() {
                   <TableCell>{row.positions || "Chưa được sắp xếp"}</TableCell>
                   <TableCell>
                     {row.totalPrice
-                      ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(row.totalPrice)
+                      ? // ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(row.totalPrice)
+                        `$${row.totalPrice}`
                       : "Chưa tính"}
                   </TableCell>
                   <TableCell>

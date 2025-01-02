@@ -17,7 +17,7 @@ export default function ReservationForm({ cartItems }) {
     time: "",
     name: `${user?.firstName} ${user?.lastName}`,
     phone: user?.phoneNumber,
-    tables: 1,
+    tables: "",
     note: "",
   });
 
@@ -38,10 +38,11 @@ export default function ReservationForm({ cartItems }) {
     }
 
     if (name === "tables") {
-      if (value < 1) return;
+      // Cho phép chuỗi rỗng hoặc số dương
+      if (value !== "" && value < 1) return;
     }
 
-    // Cập nhật giá trị input mà không validate
+    // Cập nhật giá trị input
     setReservationData((prev) => ({
       ...prev,
       [name]: value,

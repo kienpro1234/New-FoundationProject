@@ -18,7 +18,14 @@ import LoadingModal from "../LoadingModal/LoadingModal";
 import { useMediaQuery } from "react-responsive";
 import classNames from "classnames";
 
-export default function MenuCategorySection({ category, catQueryData, catName, searchFoodList, searchName }) {
+export default function MenuCategorySection({
+  category,
+  catQueryData,
+  catName,
+  searchFoodList,
+  searchName,
+  filterType,
+}) {
   // const { tableId } = useContext(CartContext);
   const [idToDelete, setIdToDelete] = useState("");
   const [editingFood, setEditingFood] = useState(null);
@@ -179,6 +186,26 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
   const mostPopularArray = mostPopularData?.map((food) => food.dishName);
   if (searchFoodList && searchFoodList.length === 0)
     return <p className="py-3 text-center font-yummy text-lg text-red-500">Không tìm thấy "{searchName}"</p>;
+
+  const getFilteredData = () => {
+    if (!finalCategoryData) return [];
+
+    let filtered = [...finalCategoryData];
+
+    switch (filterType) {
+      case "price-asc":
+        return filtered.sort((a, b) => a.price - b.price);
+      case "price-desc":
+        return filtered.sort((a, b) => b.price - a.price);
+      case "purchased":
+        return filtered.sort((a, b) => b.orderAmount - a.orderAmount);
+      case "rating":
+        return filtered.sort((a, b) => b.rankingAvg - a.rankingAvg);
+      default:
+        return filtered;
+    }
+  };
+
   return (
     <div className="menu-category">
       {addToFavMutation.isPending && <LoadingModal className="translate-x-0" />}
@@ -204,7 +231,7 @@ export default function MenuCategorySection({ category, catQueryData, catName, s
       {catName && <h3 className={classes.title}>{catName && <span>{catName}</span>}</h3>}
 
       <ul className={`row gx-4 px-3 ${classes.category}`}>
-        {finalCategoryData?.map((food) => {
+        {getFilteredData().map((food) => {
           let isFav = false;
           favIdList.some((item) => item === food.dishId) ? (isFav = true) : (isFav = false);
 
