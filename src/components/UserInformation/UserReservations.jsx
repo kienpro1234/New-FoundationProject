@@ -290,7 +290,7 @@ export default function UserReservations() {
                   <TableCell>
                     {row.totalPrice
                       ? // ? new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(row.totalPrice)
-                        `$${row.totalPrice}`
+                        `$${row.totalPrice.toFixed(2)}`
                       : "Chưa tính"}
                   </TableCell>
                   <TableCell>

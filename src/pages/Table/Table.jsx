@@ -187,8 +187,8 @@ export default function Table() {
     },
   });
 
-  const handleConfirmOrder = (orderId, orderStatus) => {
-    confirmOrderMutation.mutate({ orderId, orderStatus });
+  const handleConfirmOrder = (orderId) => {
+    confirmOrderMutation.mutate(orderId);
   };
 
   let dataTable = "";
@@ -239,14 +239,14 @@ export default function Table() {
                           </button>
                           <button
                             className="rounded-lg bg-green-600 px-2 py-1 text-white shadow"
-                            onClick={() => handleConfirmOrder(order.orderId, "pending")}
+                            onClick={() => handleConfirmOrder(order.orderId)}
                           >
                             Xác nhận đơn
                           </button>
                         </>
                       )}
                       {/* considering, pending, served */}
-                      {order.orderStatus === "pending" && (
+                      {order.orderStatus === "Serving" && (
                         <p className="inline rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">
                           Đang chuẩn bị
                         </p>

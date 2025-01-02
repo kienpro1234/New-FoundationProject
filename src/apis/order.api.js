@@ -15,5 +15,4 @@ export const fetchPaymentDetails = async (paymentId) => {
   return response.data;
 };
 
-export const updateOrderStatus = ({ orderId, orderStatus }) =>
-  http.patch(`orders/${orderId}/update-order-status?status=${orderStatus}`);
+export const updateOrderStatus = (orderId) => http.patch(`orders/${orderId}/confirm-order-status`);
