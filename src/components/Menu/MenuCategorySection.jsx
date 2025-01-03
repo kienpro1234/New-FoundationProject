@@ -272,7 +272,7 @@ export default function MenuCategorySection({
                 <div className={`${classes.footer} d-flex align-items-center justify-between`}>
                   <div className="food-review">
                     <div className="d-flex align-items-center gap-1">
-                      {normalizeNumber(food.rankingAvg)}
+                      {normalizeNumber(food.rankingAvg.toFixed(1))}
                       <i className="fa fa-star text-warning"></i>
                       {/* <p>
                         {food.starAmount} ({food.reviewAmount} reviews)

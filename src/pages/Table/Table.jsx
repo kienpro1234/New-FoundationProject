@@ -22,7 +22,7 @@ export default function Table() {
   useEffect(() => {
     setTableId(tableId);
   }, []);
-  const [isPositionValid, setIsPositionValid] = useState(false); // Đổi sang false sau
+  const [isPositionValid, setIsPositionValid] = useState(true); // Đổi sang false sau
   // Lấy vị trí của người dùng, nếu phù hợp thì tiếp tục gửi api lên cho BE(api get table, gửi kèm position trong body) để lấy thông tin table hiển thị ra, link api cũng đồng thời là link trên url, gửi kèm position để BE kiểm tra nữa, nhưng trường hợp này chắc k cần
   function calculateDistance(lat1, lng1, lat2, lng2) {
     const R = 6371; // Bán kính Trái Đất (km)
@@ -92,6 +92,8 @@ export default function Table() {
           alert(`Bạn không nằm trong phạm vi nhà hàng để order! 
                 distance: ${distance}
             allowedRadius: ${allowedRadius}
+            Vi tri cua ban: ${userLatitude}, ${userLongitude}
+            
             `);
 
           return (

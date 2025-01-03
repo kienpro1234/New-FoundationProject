@@ -16,9 +16,7 @@ export default function SiderMenu() {
                   }
                 : undefined
             }
-            className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
             to={"/"}
           >
             Trang chủ
@@ -33,9 +31,7 @@ export default function SiderMenu() {
                   }
                 : undefined
             }
-            className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
             to={"/about"}
           >
             Giới thiệu
@@ -50,15 +46,13 @@ export default function SiderMenu() {
                   }
                 : undefined
             }
-            className={({ isActive }) =>
-              isActive ? classes.active : undefined
-            }
+            className={({ isActive }) => (isActive ? classes.active : undefined)}
             to={"/menu"}
           >
             Menu
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink
             onClick={
               isMenuOpen
@@ -74,7 +68,7 @@ export default function SiderMenu() {
           >
             Liên hệ
           </NavLink>
-        </li>
+        </li> */}
       </ul>
     </>
   );
